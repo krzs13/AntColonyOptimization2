@@ -1,8 +1,18 @@
 from math import sqrt
-from typing import List
+from typing import List, Tuple
 
 
 class Position:
+    """The Position object that contains the row index and the column index.
+
+    The Position object can be compared to another Position object, and the 
+    comparison is done by checking if row indexes and column indexes are equal.
+
+    Args:
+        row (int): The row index.
+        column (int): The column index.
+    """
+
     def __init__(self, row: int, column: int):
         self._row = row
         self._column = column
@@ -11,12 +21,35 @@ class Position:
         return self._row == position.row and self._column == position.column
 
     @property
-    def row(self):
+    def row(self) -> int:
+        """Returns the row index.
+
+        Returns:
+            int: The row index.
+        """
+
         return self._row
 
     @property
     def column(self):
+        """Returns the column index.
+
+        Returns:
+            int: The column index.
+        """
+
         return self._column
+
+    @property
+    def coordinates(self) -> Tuple[int, int]:
+        """Returns the coordinates of the position.
+
+        Returns:
+            Tuple[int, int]: The coordinates of the position as tuple of the 
+                row index and the column index.
+        """
+        
+        return self._row, self._column
 
 
 def calculate_distance(solution: List[Position]) -> float:

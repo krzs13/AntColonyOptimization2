@@ -1,4 +1,5 @@
 from random import choice, choices
+from typing import Union
 
 import numpy as np
 
@@ -11,7 +12,7 @@ class AntLogic:
         self._pheromone_matrix = pheromone.pheromone_matrix
         self._home_position = pheromone.home_position
         self._food_position = pheromone.food_position
-        self.position = self._set_initial_position()
+        self._position = self._set_initial_position()
         self._mode = self._set_initial_mode()
         self._tabu_list = []
         self.current_solution = []
@@ -25,7 +26,7 @@ class AntLogic:
         return position
 
     def _set_initial_mode(self) -> int:
-        mode = self.position == self._food_position
+        mode = self._position == self._food_position
 
         return mode
 
@@ -35,14 +36,24 @@ class AntLogic:
         self.current_solution = self._tabu_list
         self._tabu_list = []
 
+    @property
+    def position(self) -> Position:
+        return self._position
+
+    @property
+    def previous_position(self) -> Union[Position, int]:
+        previous_position = self._tabu_list[-1] if self._tabu_list else 0 
+
+        return previous_position
+
     def choose_path(self, alpha: int):
-        self._tabu_list.append(self.position)
+        self._tabu_list.append(self._position)
         possible_paths = []
         pheromone_values = []
 
         for row, column in self._possible_moves:
             possible_path = Position(
-                self.position.row + row, self.position.column + column)
+                self._position.row + row, self._position.column + column)
             row = possible_path.row
             column = possible_path.column
 
@@ -82,4 +93,4 @@ class AntLogic:
             elif choosen_path == self._food_position and self._mode == 0:
                 self._change_mode(1, choosen_path)
 
-            self.position = choosen_path
+            self._position = choosen_path
