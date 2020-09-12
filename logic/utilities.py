@@ -17,7 +17,7 @@ class Position:
         self._row = row
         self._column = column
 
-    def __eq__(self, position: Position):
+    def __eq__(self, position):
         return self._row == position.row and self._column == position.column
 
     @property

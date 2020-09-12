@@ -7,7 +7,7 @@ from logic.pheromone_logic import PheromoneLogic
 from logic.utilities import Position
 
 
-class DisplayCanvas(BaseCanvas):
+class DisplayMap(BaseCanvas):
     def __init__(self, width: int, height: int, field_size: int, master: tk.Tk,
                  pheromone: PheromoneLogic):
         super().__init__(width, height, field_size, master)

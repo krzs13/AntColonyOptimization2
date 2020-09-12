@@ -11,8 +11,7 @@ class BaseCanvas(ABC):
         self._height = height
         self._field_size = field_size
         self._master = master
-        self.canvas = self._create_canvas_object(
-            width, height, field_size, master)
+        self.canvas = self._create_canvas_object()
         self.canvas_matrix = self._create_matrix()
 
     def _create_canvas_object(self) -> tk.Canvas:

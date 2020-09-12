@@ -4,7 +4,7 @@ from graphics.base_canvas import BaseCanvas
 from logic.utilities import Position
 
 
-class DrawCanvas(BaseCanvas):
+class DrawMap(BaseCanvas):
     def __init__(self, width: int, height: int, field_size: int, master: tk.Tk):
         super().__init__(width, height, field_size, master)
         self.canvas.bind('<Button-1>', self._draw_wall)
@@ -56,7 +56,7 @@ class DrawCanvas(BaseCanvas):
                 self.canvas_matrix[row][column], fill=color)
             prior_position = Position(row, column)
 
-            if prior_position == later_position:
+            if later_position and prior_position == later_position:
                 later_position = None
         except IndexError:
             pass
@@ -69,7 +69,7 @@ class DrawCanvas(BaseCanvas):
         self._base_set_position(
             event, self._food_position, self._home_position, 'green')
 
-    def display_map(self) -> None:
+    def create_canvas(self) -> None:
         for row in range(self._height):
             for column in range(self._width):
                 x_1 = column * self._field_size
